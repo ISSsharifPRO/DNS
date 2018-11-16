@@ -12,20 +12,29 @@ public static void main(String[] args) {
 	System.out.println("**********************************************************");
 	System.out.println("**********************************************************");
 
-	String write="";
+	String write="",we="";
 	Scanner sc = new Scanner(System.in);
 	if(sc.nextLine().equals("")){
-		write = "178.22.122.100";
+		write = "nameserver 178.22.122.100";
+		we ="178.22.122.100";
 	}
 	else{
-		write = sc.nextLine();
+		write = "nameserver "+sc.nextLine();
 	}
 	try{
 	File file = new File("/etc/resolv.conf");
+	File file2 = new File("./wr.txt");
+	String finals="";
 	FileWriter wr = new FileWriter(file);
-	wr.write(write);
+	Scanner ssc = new Scanner(file2);
+	while(ssc.hasNextLine()){
+	finals += ssc.nextLine();
+	finals += "\n";
+    }
+	finals += "\n"+write;
+	wr.write(finals);
 	wr.close();
-	System.out.print("your DNS changed to: "+write);
+	System.out.print("your DNS changed to: "+we);
 	}catch(Exception e){
 		System.out.println("faled!!");
 		System.out.println("i have not permission");
